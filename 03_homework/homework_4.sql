@@ -16,8 +16,9 @@ HINT: keep the syntax the same, but edited the correct components with the strin
 The `||` values concatenate the columns into strings. 
 Edit the appropriate columns -- you're making two edits -- and the NULL rows will be fixed. 
 All the other rows will remain the same.) */
-
-
+SELECT 
+product_name || ', ' || COALESCE(product_size, ' ') || ' (' || COALESCE(product_qty_type, 'unit')  || ')' AS product
+FROM product
 
 
 --Windowed Functions
@@ -30,11 +31,41 @@ each new market date for each customer, or select only the unique market dates p
 (without purchase details) and number those visits. 
 HINT: One of these approaches uses ROW_NUMBER() and one uses DENSE_RANK(). */
 
+SELECT ROW_NUMBER() OVER (PARTITION BY c.customer_id ORDER BY c.customer_id, cp.market_date) as row_no
+, cp.customer_id, cp.market_date, c.customer_first_name, c.customer_last_name 
+FROM customer_purchases cp
+LEFT JOIN customer c
+ON cp.customer_id = c.customer_id
+
+
+SELECT DISTINCT DENSE_RANK() OVER (PARTITION BY c.customer_id ORDER BY c.customer_id, cp.market_date) as rank_no, 
+cp.customer_id, cp.market_date, c.customer_first_name, c.customer_last_name
+FROM customer_purchases cp
+LEFT JOIN customer c
+ON cp.customer_id = c.customer_id
 
 /* 2. Reverse the numbering of the query from a part so each customer’s most recent visit is labeled 1, 
 then write another query that uses this one as a subquery (or temp table) and filters the results to 
 only the customer’s most recent visit. */
+SELECT customer_id, market_date, customer_first_name, customer_last_name FROM
+(
+	SELECT DISTINCT cp.customer_id, cp.market_date, c.customer_first_name, c.customer_last_name,
+	DENSE_RANK() OVER (PARTITION BY cp.customer_id ORDER BY cp.customer_id, cp.market_date DESC) as rank_no
+	FROM customer_purchases cp
+	LEFT JOIN customer c
+	ON cp.customer_id = c.customer_id
 
+) x
+WHERE x.rank_no = 1
 
 /* 3. Using a COUNT() window function, include a value along with each row of the 
 customer_purchases table that indicates how many different times that customer has purchased that product_id. */
+
+SELECT DISTINCT customer_id, product_id, COUNT(product_id) OVER(PARTITION BY customer_id, product_id) AS product_count
+FROM customer_purchases 
+
+-- Another way to do the same
+SELECT customer_id, product_id, COUNT(product_id) AS product_count
+FROM customer_purchases 
+GROUP BY customer_id, product_id
+ORDER BY customer_id, product_id
