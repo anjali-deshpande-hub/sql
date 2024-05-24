@@ -89,7 +89,7 @@ FROM product
 
 /* 2. Filter the query to show any product_size value that contain a number with REGEXP. */
 
-
+SELECT product_name, product_size FROM product WHERE product_size REGEXP '[0-9]+'
 
 -- UNION
 /* 1. Using a UNION, write a query that displays the market dates with the highest and lowest total sales.
