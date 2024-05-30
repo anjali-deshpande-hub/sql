@@ -78,7 +78,23 @@ Review the AdventureWorks Schema [here](https://i.stack.imgur.com/LMu4W.gif)
 
 Highlight at least two differences between it and your ERD. Would you change anything in yours?
 ```
-Your answer...
+
+1. The AdventureWorks schema is very complex where in the tables cover a wide range of business functions
+like HR, Production, Sales, Purchasing etc. It is suitable for large scale enterprises where there is need for
+employee management, sales data management and production management. There is extensive product and production
+ tracking including bills and credit card transactions. There is employee and department tracking capabilities
+ including shifts.
+The bookstore ERD is ideal for a bookstore in small retail space. The bookstore has basic order and customer
+details, book inventory with supplier information, employee details including shift management. The date table
+can be used to analyze data associated with sales and employee shifts.
+
+
+2. Adventure Works maintains historical data for sales, production and employee departments. It includes
+SCD (Slowly Changing Dimensions) for maintaining historical data in HR and Sales.
+In Bookstore ERD, historical tracking is limited to order history and employee shifts.
+There is less focus on tracking historical data. 
+
+I would add design for payment via credit card/debit card along with shopping cart capabilities.
 ```
 
 # Criteria
