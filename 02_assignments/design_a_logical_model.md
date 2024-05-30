@@ -15,7 +15,54 @@ _Hint, search type 1 vs type 2 slowly changing dimensions._
 
 Bonus: Are there privacy implications to this, why or why not?
 ```
-Your answer...
+Design 1:
+
+In design 1 (SCD Type 1) , the existing address is overwritten with the new address when ever there is a modification
+to the customer's address. The design only keeps the most recent address for each customer. The previous address
+data is overwritten.
+
+CREATE TABLE CUSTOMER_ADDRESS (
+	address_id int(12) NOT NULL PRIMARY KEY,
+	customer_id int(12) NOT NULL,
+	street varchar(255), 
+	city varchar(50), 
+	state varchar(50), 
+	postal_code varchar(7), 
+	last_updated DATETIME,
+	FOREIGN KEY(customer_id) REFERENCES customer(customer_id)
+); 
+
+This design is simple, requires less storage and does not retain historical data. 
+
+Design 2:
+
+In  design 2 (SCD Type 2), the  CUSTOMER_ADDRESS table retains the historical address data by creating a new record
+every time there is modification to any of the fields. It allows us to keep history of all address changes for each
+customer.
+
+CREATE TEMP TABLE CUSTOMER_ADDRESS ( 
+	address_id int(12) NOT NULL PRIMARY KEY, 
+	customer_id int(12), 
+	street VARCHAR(255), 
+	city VARCHAR(50), 
+	state VARCHAR(50), 
+	postal_code VARCHAR(7), 
+	start_date DATETIME, 
+	end_date DATETIME, 
+	is_current BOOLEAN NOT NULL ,
+   FOREIGN KEY(customer_id) REFERENCES customer(customer_id)
+); 
+
+Every time the customer's address changes, there is a new record created in this table. The end_date for the
+existing record for the customer is set to CURRENT_TIMESTAMP  and is_current flag is set to FALSE. There is
+a new record created for the new address where the start_date is  set to CURRENT_TIMESTAMP and the end_date
+is set to NULL and is_current is set to TRUE.
+
+Design 2  is complex as compared to Design 1. There are privacy concerns because there is retention of
+historical data. If historical data is no longer necessary, it should be deleted. Since the amount of
+data being stored is more, there is all the more need to protect the user data. There is also need to
+inform the customers about what data is being stored and the reason for storing historical data.
+
 ```
 
 ## Question 4
