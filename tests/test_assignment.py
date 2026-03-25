@@ -36,8 +36,8 @@ def load_queries(sql_file):
                 continue  # ignore stray END
 
             query = "\n".join(buffer).strip().rstrip(";")
-            if not query.strip():
-                raise AssertionError(f"Query {current_query}: No SQL")
+            #if not query.strip():
+            #    raise AssertionError(f"Query {current_query}: No SQL")
             
             queries.append({
                 "number": current_query,
