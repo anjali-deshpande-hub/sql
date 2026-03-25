@@ -78,7 +78,7 @@ def run_assignment(sqlite_db, file_path):
             test_result.append( { "number": parsed_query['number'], "query": parsed_query['query'], "result": rows[0:3] })
         except Exception as e:
             #print(f"An unexpected error occurred: {e}")
-            test_result.append({ "number": parsed_query['number'], "query": parsed_query['query'], "result": "Error" . str(e)} )
+            test_result.append({ "number": parsed_query['number'], "query": parsed_query['query'], "result": "Error {}".format(str(e))} )
     json.dump(test_result, json_file, indent=2)
     json_file.close()
     assert True,  "test execution query {} result {}".format(queries, test_result)
