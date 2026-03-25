@@ -36,7 +36,10 @@ def load_queries(sql_file):
                 continue  # ignore stray END
 
             query = "\n".join(buffer).strip().rstrip(";")
-
+            if not query.strip():
+                raise AssertionError(
+                        f"Query {current_query}: No SQL between -- QUERY {current_query} and -- END QUERY"
+                    )
             queries.append({
                 "number": current_query,
                 "query": query
@@ -75,9 +78,10 @@ def run_assignment(sqlite_db, file_path):
             rows = run_query(sqlite_db, parsed_query['query'])
             test_result.append( { "number": parsed_query['number'], "query": parsed_query['query'], "result": rows[0:3] })
         except Exception as e:
-            print(f"An unexpected error occurred: {e}")
+            #print(f"An unexpected error occurred: {e}")
+            test_result.append({ "number": parsed_query['number'], "error": str(e)} )
     json.dump(test_result, json_file, indent=2)
     json_file.close()
-    assert True,  "test execution query {} result {}".format(queries, test_result)
+    #assert True,  "test execution query {} result {}".format(queries, test_result)
 
 
