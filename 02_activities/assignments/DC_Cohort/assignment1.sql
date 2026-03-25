@@ -9,7 +9,6 @@
 
 
 
-
 --END QUERY
 
 
@@ -17,6 +16,11 @@
 sorted by customer_last_name, then customer_first_ name. */
 --QUERY 2
 
+
+SELECT *
+FROM customer
+ORDER BY customer_last_name, customer_first_name
+LIMIT 10
 
 
 
@@ -37,7 +41,17 @@ Limit to 25 rows of output.
 */
 --QUERY 3
 
-
+SELECT
+market_date,
+customer_id,
+vendor_id,
+product_id,
+quantity,
+quantity * cost_to_customer_per_qty AS price
+FROM customer_purchases
+WHERE customer_id BETWEEN 8 AND 10
+ORDER BY market_date, vendor_id, product_id
+LIMIT 25
 
 
 --END QUERY
@@ -50,6 +64,11 @@ columns and add a column called prod_qty_type_condensed that displays the word �
 if the product_qty_type is “unit,” and otherwise displays the word “bulk.” */
 --QUERY 4
 
+SELECT
+product_id,
+product_name,
+CASE WHEN product_qty_type = "unit" THEN "unit"
+ELSE "bulk" END AS prod_qty_type_condensed
 
 
 
@@ -60,7 +79,12 @@ if the product_qty_type is “unit,” and otherwise displays the word “bulk.�
 add a column to the previous query called pepper_flag that outputs a 1 if the product_name 
 contains the word “pepper” (regardless of capitalization), and otherwise outputs 0. */
 --QUERY 5
-
+SELECT
+product_id,
+product_name,
+CASE WHEN product_name LIKE '%epper%'
+THEN 1 ELSE 0 END AS pepper_flag
+FROM product
 
 
 
