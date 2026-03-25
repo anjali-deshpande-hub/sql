@@ -114,7 +114,7 @@ at the farmer’s market by counting the vendor booth assignments per vendor_id.
 
 
 
-/* no --END QUERY marker */
+--END QUERY
 
 /* 2. The Farmer’s Market Customer Appreciation Committee wants to give a bumper 
 sticker to everyone who has ever spent more than $2000 at the market. Write a query that generates a list 
