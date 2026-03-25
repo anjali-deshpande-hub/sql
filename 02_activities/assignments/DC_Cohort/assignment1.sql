@@ -73,7 +73,7 @@ ELSE "bulk" END AS prod_qty_type_condensed
 
 
 --END QUERY
-
+/* sql-autorunner - Incorrect query */
 
 /* 2. We want to flag all of the different types of pepper products that are sold at the market. 
 add a column to the previous query called pepper_flag that outputs a 1 if the product_name 
@@ -101,7 +101,7 @@ Limit to 24 rows of output. */
 
 
 --END QUERY
-
+/* sql-autorunner - empty query */
 
 
 /* SECTION 3 */
@@ -114,8 +114,7 @@ at the farmer’s market by counting the vendor booth assignments per vendor_id.
 
 
 
---END QUERY
-
+/* no --END QUERY marker */
 
 /* 2. The Farmer’s Market Customer Appreciation Committee wants to give a bumper 
 sticker to everyone who has ever spent more than $2000 at the market. Write a query that generates a list 
