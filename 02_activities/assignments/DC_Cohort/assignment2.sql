@@ -23,7 +23,9 @@ Edit the appropriate columns -- you're making two edits -- and the NULL rows wil
 All the other rows will remain the same. */
 --QUERY 1
 
-
+SELECT 
+product_name || ', ' || product_size|| ' (' || product_qty_type || ')'
+FROM product
 
 
 --END QUERY
@@ -44,7 +46,7 @@ Filter the visits to dates before April 29, 2022. */
 
 
 
---END QUERY
+/*--END QUERY no end of query marker */
 
 
 /* 2. Reverse the numbering of the query so each customer’s most recent visit is labeled 1, 
