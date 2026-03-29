@@ -7,7 +7,7 @@
 /* 1. Write a query that returns everything in the customer table. */
 --QUERY 1
 
-SELECT * FROM customer
+SELECT * FROM customer;
 
 --END QUERY
 
@@ -20,7 +20,7 @@ sorted by customer_last_name, then customer_first_ name. */
 SELECT *
 FROM customer
 ORDER BY customer_last_name, customer_first_name
-LIMIT 10
+LIMIT 10;
 
 --END QUERY
 
@@ -49,7 +49,7 @@ quantity * cost_to_customer_per_qty AS price
 FROM customer_purchases
 WHERE customer_id >= 8
 AND customer_id <= 10
-LIMIT 25
+LIMIT 25;
 
 
 --END QUERY
@@ -72,7 +72,7 @@ quantity * cost_to_customer_per_qty AS price
 FROM customer_purchases
 WHERE customer_id BETWEEN 8 AND 10
 ORDER BY market_date, vendor_id, product_id
-LIMIT 25
+LIMIT 25;
 
 
 --END QUERY
@@ -88,7 +88,7 @@ product_id,
 product_name,
 CASE WHEN product_qty_type = "unit" THEN "unit"
 ELSE "bulk" END AS prod_qty_type_condensed
-FROM product
+FROM product;
 
 
 --END QUERY
@@ -106,7 +106,7 @@ FROM vendor AS v
 INNER JOIN vendor_booth_assignments AS vba
     ON v.vendor_id = vba.vendor_id
 ORDER BY vba.market_date, v.vendor_name
-LIMIT 24
+LIMIT 24;
 
 
 --END QUERY
@@ -125,7 +125,7 @@ SELECT
 vendor_id,
 count(*) AS count_of_booth_assignments
 FROM vendor_booth_assignments
-GROUP BY vendor_id
+GROUP BY vendor_id;
 
 --END QUERY
 
@@ -141,7 +141,7 @@ SELECT
 vendor_id,
 count(*) AS count_of_booth_assignments
 FROM vendor_booth_assignments
-GROUP BY vendor_id
+GROUP BY vendor_id;
 
 
 --END QUERY
@@ -161,10 +161,10 @@ VALUES(col1,col2,col3,col4,col5)
 --QUERY 9
 
 CREATE TABLE temp.new_vendor AS
-SELECT * FROM vendor
+SELECT * FROM vendor;
 
 INSERT INTO temp.new_vendor
-VALUES (10, "Thomass Superfood Store" , "Fresh Focused", "Thomas", "Rosenthal")
+VALUES (10, "Thomass Superfood Store" , "Fresh Focused", "Thomas", "Rosenthal");
 
 
 --END QUERY
@@ -182,7 +182,7 @@ STRFTIME('%m',market_date) AS purchase_month,
 STRFTIME('%Y', market_date) AS purchase_year
 
 FROM customer_purchases
-LIMIT 25
+LIMIT 25;
 
 
 
@@ -207,7 +207,7 @@ FROM customer_purchases
 WHERE STRFTIME('%Y', market_date)  = '2023'
 AND STRFTIME('%m',market_date) = '04'
 
-GROUP BY STRFTIME('%Y', market_date) ,STRFTIME('%m', market_date), customer_id
+GROUP BY STRFTIME('%Y', market_date) ,STRFTIME('%m', market_date), customer_id;
 
 
 --END QUERY
