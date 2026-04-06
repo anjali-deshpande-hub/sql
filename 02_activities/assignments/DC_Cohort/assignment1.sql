@@ -5,8 +5,9 @@
 
 --SELECT
 /* 1. Write a query that returns everything in the customer table. */
---QUERY 1
-
+/*--QUERY 1 */
+-- QUERY 1
+SELECT * FROM students;
 
 
 
